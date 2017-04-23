@@ -53,6 +53,7 @@ API oriented, open-source, block-styled Edtior.
 https://github.com/codex-team/codex.editor
 
 ## Authors 
+
 We are small team of Web-developing fans consisting of IFMO students and graduates located in St. Petersburg, Russia.
 Fell free to give us a feedback on <a href="mailto::team@ifmo.su">team@ifmo.su</a>
 

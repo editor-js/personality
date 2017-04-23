@@ -32,7 +32,7 @@ module.exports = function (uploader) {
      * Makes images preview
      * @param  {HTMLElement} holder
      */
-    function preview(holder) {
+    function makePreview(holder) {
 
         var input = codex.editor.transport.input,
             files = input.files,
@@ -41,7 +41,7 @@ module.exports = function (uploader) {
 
         console.assert( files, 'There is no files in input');
 
-        reader = new FileReader();
+        reader = new window.FileReader();
         reader.readAsDataURL(files[0]);
 
         preview.classList.add(ui.css.photoPreview);
@@ -69,7 +69,7 @@ module.exports = function (uploader) {
         /**
          * Returned value will be passed as context of success and error
          */
-        return preview(selectPhotoButton);
+        return makePreview(selectPhotoButton);
 
     }
 
@@ -115,7 +115,6 @@ module.exports = function (uploader) {
 
     /**
      * Select file click listener
-     * @return {[type]} [description]
      */
     uploader.photoClicked = function () {
 

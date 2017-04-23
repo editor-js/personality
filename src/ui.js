@@ -25,7 +25,7 @@ module.exports = function (ui) {
      * @param {string} className
      * @param {object} properties - allow to assign properties
      */
-    let create = function ( tagName, className, properties ) {
+    var create = function ( tagName, className, properties ) {
 
         var el = document.createElement( tagName );
 
