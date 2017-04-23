@@ -45,6 +45,7 @@ module.exports = function (uploader) {
         reader.readAsDataURL(files[0]);
 
         preview.classList.add(ui.css.photoPreview);
+        holder.innerHTML = '';
         holder.appendChild(preview);
 
         reader.onload = function ( e ) {
@@ -65,8 +66,6 @@ module.exports = function (uploader) {
 
         var selectPhotoButton = this;
 
-        console.log('beforeSend this %o', selectPhotoButton);
-
         /**
          * Returned value will be passed as context of success and error
          */
@@ -78,19 +77,24 @@ module.exports = function (uploader) {
      * Success uploading hanlder
      * @this - beforeSend result
      * @param {String} response - upload response
+     *
+     * Expected response format:
+     * {
+     *     success : 1,
+     *     data: {
+     *         url : 'site/filepath.jpg'
+     *     }
+     * }
      */
     function success( response ) {
-
-        console.log('Success this %o', this);
-        console.log('Success response %o', response);
 
         let preview = this;
 
         response = JSON.parse(response);
 
-        console.assert(response.url, 'Expected photo URL was not found in response data');
+        console.assert(response.data && response.data.url, 'Expected photo URL was not found in response data');
 
-        updatePreview(preview, response.url);
+        updatePreview(preview, response.data.url);
         preview.classList.remove(ui.css.photoPreview);
 
     }
@@ -101,7 +105,11 @@ module.exports = function (uploader) {
      */
     function failed() {
 
-        console.log('Error this %o', this);
+        var preview = this;
+
+        codex.editor.notifications.notification({type: 'error', message: 'Ошибка во время загрузки. Попробуйте другой файл'});
+
+        preview.remove();
 
     }
 

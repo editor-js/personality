@@ -106,10 +106,22 @@ module.exports = function (ui) {
 
      /**
      * @return {Element}
+     * @param {String} savedPhoto image URL
      */
-    ui.photo = function () {
+    ui.photo = function (savedPhoto) {
 
-        return create('DIV', ui.css.photo);
+        var photo = create('DIV', ui.css.photo),
+            img;
+
+        if (savedPhoto) {
+
+            img = document.createElement('IMG');
+            img.src = savedPhoto;
+            photo.appendChild(img);
+
+        }
+
+        return photo;
 
     };
 

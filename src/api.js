@@ -15,7 +15,7 @@ module.exports = function () {
     /**
      * Styleheets
      */
-    require('./assets/css/styles.css');
+    require('./css/styles.css');
 
     var ui       = require('./ui');
     var saver    = require('./saver');
@@ -32,11 +32,13 @@ module.exports = function () {
      */
     function render( toolData ) {
 
+        toolData = toolData || {};
+
         var pluginHolder = ui.holder(),
             name         = ui.nameInput(toolData.name),
             cite         = ui.citeInput(toolData.cite),
             url          = ui.urlInput(toolData.url),
-            photo        = ui.photo();
+            photo        = ui.photo(toolData.photo);
 
         pluginHolder.appendChild(photo);
         pluginHolder.appendChild(name);
