@@ -2,7 +2,7 @@
   "name": "codex.editor.personality",
   "version": "1.0.0",
   "description": "Personality tool for Codex Editor",
-  "main": "index.js",
+  "main": "personality.js",
   "scripts": {
     "build": "webpack"
   },
@@ -17,7 +17,7 @@
     "personality",
     "redactor"
   ],
-  "author": "CodeX Team",
+  "author": "CodeX Team <team@ifmo.su> (https://ifmo.su)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/codex-editor/personality/issues"

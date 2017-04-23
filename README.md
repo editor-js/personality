@@ -4,11 +4,31 @@ This tool allows you to create Personality block in your articles.
 
 ![Example](https://ifmo.su/public/img/external/personality.png)
 
-## Usage
+## Install via npm
+
+```shell
+npm i --save codex.editor.personality
+```
+
+#### Connect with Webpack
+Include module in your application
+```js
+var cdxEditorPersonality = require('exports-loader?cdxEditorPersonality!codex.editor.personality');
+```
+Include CSS filee
+```css
+@import url("~codex.editor.personality/personality.css");
+```
+You will need `exports-loader`, `css-loader` and `file-loader`.
+
+## Install directly
 
 1. Download folder
 2. Add `personality.js` and `personality.css` files on your page
-3. Pass new tool to the `codex.editor.start` method in `tools` array:
+
+## Usage
+
+Pass new tool to the `codex.editor.start` method in `tools` array:
 
 ```js
 personality: {
