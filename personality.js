@@ -230,8 +230,9 @@ module.exports = function (saver) {
             toolData = {};
 
         toolData.name = nameEl.value;
-        toolData.cite = citeEl.innerHTML;
+        toolData.cite = codex.editor.content.wrapTextWithParagraphs(citeEl.innerHTML);
         toolData.url  = urlEl.value;
+        toolData.photo = null;
 
         if (photo) {
 
