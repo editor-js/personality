@@ -39,9 +39,9 @@ Expected server response format:
 
 ```json
 {
-  success: 1,
-  data {
-    url : '/uploaded/file/path.jpg'
+  "success": 1,
+  "data" : {
+    "url" : "/uploaded/file/path.jpg"
   }
 }
 ```
