@@ -1,6 +1,6 @@
 {
   "name": "codex.editor.personality",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Personality tool for Codex Editor",
   "main": "personality.js",
   "scripts": {

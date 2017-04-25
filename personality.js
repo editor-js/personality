@@ -227,10 +227,27 @@ module.exports = function (saver) {
             citeEl = block.querySelector(`.${ui.css.cite}`),
             urlEl  = block.querySelector(`.${ui.css.url}`),
             photo  = block.querySelector(`.${ui.css.photo} img`),
-            toolData = {};
+            toolData = {},
+            sanitizerConfig = {
+                tags : {
+                    p : {},
+                    a: {
+                        href: true,
+                        target: '_blank',
+                        rel: 'nofollow'
+                    },
+                    i: {},
+                    b: {},
+                }
+            },
+            cite;
+
+        cite = citeEl.innerHTML;
+        cite = codex.editor.content.wrapTextWithParagraphs(cite);
+        cite = codex.editor.sanitizer.clean(cite, sanitizerConfig);
 
         toolData.name = nameEl.value;
-        toolData.cite = codex.editor.content.wrapTextWithParagraphs(citeEl.innerHTML);
+        toolData.cite = cite;
         toolData.url  = urlEl.value;
         toolData.photo = null;
 
