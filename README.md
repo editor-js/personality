@@ -1,3 +1,5 @@
+![](https://badgen.net/badge/CodeX%20Editor/v1.0/gray)
+
 # Personality Tool for CodeX Editor
 
 This tool allows you to create Personality block in your articles.
