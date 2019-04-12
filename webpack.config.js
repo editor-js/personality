@@ -1,44 +1,52 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 module.exports = {
-  entry: './src/api.js',
+  entry: './src/index.js',
   output: {
-    filename: 'personality.js',
-    library: 'cdxEditorPersonality',
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'bundle.js',
+    library: 'Personality',
+    libraryTarget: 'umd',
+    libraryExport: 'default'
   },
   module: {
     rules: [
       {
-          test : /\.(png|jpg|svg)$/,
-          use : "file-loader?name=[path][name].[ext]"
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            query: {
+              presets: [ '@babel/preset-env' ],
+            },
+          },
+          {
+            loader: 'eslint-loader',
+            options: {
+              fix: true
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract([
+        use: [
+          'style-loader',
+          'css-loader',
           {
-            loader: 'css-loader',
+            loader: 'postcss-loader',
             options: {
-              minimize: 1,
-              importLoaders: 1
+              plugins: [
+                require('postcss-nested')
+              ]
             }
-          },
-          'postcss-loader'
-        ])
+          }
+        ]
       },
       {
-        test : /\.js$/,
-        loader: "eslint-loader",
-        options : {
-          fix: true
-        }
+        test: /\.svg$/,
+        loader: 'svg-inline-loader?removeSVGTagAttrs=false'
       }
     ]
-  },
-  plugins : [
-    new ExtractTextPlugin({
-      filename: 'personality.css',
-      allChunks: true,
-    }),
-  ],
-  watch: true,
+  }
 };

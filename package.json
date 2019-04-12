@@ -1,37 +1,45 @@
 {
-  "name": "codex.editor.personality",
-  "version": "1.0.2",
-  "description": "Personality tool for Codex Editor",
-  "main": "personality.js",
+  "name": "@editorjs/personality",
+  "version": "2.0.0",
+  "description": "Personality tool for Editor.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codex-editor/personality.git"
+    "url": "git+https://github.com/editor-js/personality.git"
   },
   "keywords": [
-    "codex",
-    "codex.editor",
-    "codex-editor",
+    "redactor",
+    "codex editor",
     "personality",
-    "redactor"
+    "tool",
+    "editor.js",
+    "editorjs"
   ],
-  "author": "CodeX Team <team@ifmo.su> (https://ifmo.su)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/codex-editor/personality/issues"
+    "url": "https://github.com/editor-js/personality/issues"
   },
-  "homepage": "https://github.com/codex-editor/personality#readme",
+  "homepage": "https://github.com/editor-js/personality#readme",
   "devDependencies": {
+    "@codexteam/ajax": "^4.0.1",
     "css-loader": "^0.28.0",
-    "eslint": "^3.19.0",
-    "eslint-loader": "^1.7.1",
+    "eslint": "^5.9.0",
+    "eslint-config-codex": "github:codex-team/eslint-config",
+    "eslint-loader": "^2.1.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
+    "formidable": "^1.2.1",
     "postcss-cssnext": "^2.10.0",
-    "postcss-loader": "^1.3.3",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2",
     "postcss-smart-import": "^0.6.12",
-    "webpack": "^2.4.1"
+    "request": "^2.88.0",
+    "style-loader": "^0.23.1",
+    "svg-inline-loader": "^0.8.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }

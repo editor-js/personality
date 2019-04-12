@@ -1,136 +1,42 @@
+import ajax from '@codexteam/ajax';
+
 /**
- * Uploader module for Personality tool
- * @author  CodeX Team
+ * Module for file uploading.
  */
-module.exports = function (uploader) {
+export default class Uploader {
+  /**
+   * @param {PersonalityConfig} config
+   * @param {function} onUpload - one callback for all uploading (file, d-n-d, pasting)
+   * @param {function} onError - callback for uploading errors
+   */
+  constructor({ config, onUpload, onError }) {
+    this.config = config;
+    this.onUpload = onUpload;
+    this.onError = onError;
+  }
 
-    'use strict';
+  /**
+   * Handle clicks on the upload file button
+   * @fires ajax.transport()
+   * @param {function} onPreview - callback fired when preview is ready
+   */
+  uploadSelectedFile({ onPreview }) {
+    ajax.transport({
+      url: this.config.endpoint,
+      accept: this.config.types,
+      beforeSend: (files) => {
+        const reader = new FileReader();
 
-    var ui = require('./ui');
-
-    /**
-     * External config
-     * @type {Object}
-     */
-    uploader.config = {
-        uploadURL : ''
-    };
-
-    /**
-     * Updates preview image
-     * @return {Element} preview - preview IMG
-     * @return {String} src      - preview image source
-     */
-    function updatePreview( preview, src ) {
-
-        preview.src = src;
-
-    }
-
-
-    /**
-     * Makes images preview
-     * @param  {HTMLElement} holder
-     */
-    function makePreview(holder) {
-
-        var input = codex.editor.transport.input,
-            files = input.files,
-            reader,
-            preview = document.createElement('IMG');
-
-        console.assert( files, 'There is no files in input');
-
-        reader = new window.FileReader();
         reader.readAsDataURL(files[0]);
-
-        preview.classList.add(ui.css.photoPreview);
-        holder.innerHTML = '';
-        holder.appendChild(preview);
-
-        reader.onload = function ( e ) {
-
-            updatePreview(preview, e.target.result);
-
+        reader.onload = (e) => {
+          onPreview(e.target.result);
         };
-
-        return preview;
-
-    }
-
-    /**
-     * Before send method
-     * @this {Button clicked}
-     */
-    function beforeSend() {
-
-        var selectPhotoButton = this;
-
-        /**
-         * Returned value will be passed as context of success and error
-         */
-        return makePreview(selectPhotoButton);
-
-    }
-
-    /**
-     * Success uploading hanlder
-     * @this - beforeSend result
-     * @param {String} response - upload response
-     *
-     * Expected response format:
-     * {
-     *     success : 1,
-     *     data: {
-     *         url : 'site/filepath.jpg'
-     *     }
-     * }
-     */
-    function success( response ) {
-
-        let preview = this;
-
-        response = JSON.parse(response);
-
-        console.assert(response.data && response.data.url, 'Expected photo URL was not found in response data');
-
-        updatePreview(preview, response.data.url);
-        preview.classList.remove(ui.css.photoPreview);
-
-    }
-
-    /**
-     * Error during upload handler
-     * @this {Element} preview
-     */
-    function failed() {
-
-        var preview = this;
-
-        codex.editor.notifications.notification({type: 'error', message: 'Ошибка во время загрузки. Попробуйте другой файл'});
-
-        preview.remove();
-
-    }
-
-    /**
-     * Select file click listener
-     */
-    uploader.photoClicked = function () {
-
-        var button = this;
-
-        codex.editor.transport.selectAndUpload({
-            url         : uploader.config.uploadURL,
-            multiple    : false,
-            accept      : 'image/*',
-            beforeSend  : beforeSend.bind(button),
-            success     : success,
-            error       : failed
-        });
-
-    };
-
-    return uploader;
-
-}({});
+      },
+      fieldName: this.config.field
+    }).then((response) => {
+      this.onUpload(response);
+    }).catch((error) => {
+      this.onError(error.message);
+    });
+  }
+}
