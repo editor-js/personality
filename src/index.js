@@ -226,7 +226,7 @@ export default class Personality {
     this.nodes.photo = this.make('div', this.CSS.photo);
 
     if (photo) {
-      this.nodes.photo.style.background = `url(${photo}) center center/cover no-repeat`;
+      this.nodes.photo.style.background = `url('${photo}') center center / cover no-repeat`;
     }
 
     if (description) {
