@@ -108,7 +108,7 @@ export default class Personality {
   showFullImage() {
     setTimeout(() => {
       this.nodes.photo.classList.remove(this.CSS.loader);
-      this.nodes.photo.style.background = `url(${this.data.photo}) center center/cover no-repeat`;
+      this.nodes.photo.style.background = `url('${this.data.photo}') center center / cover no-repeat`;
     }, LOADER_DELAY);
   }
 
