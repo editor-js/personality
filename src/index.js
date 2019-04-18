@@ -247,6 +247,15 @@ export default class Personality {
       this.nodes.link.dataset.placeholder = 'Ссылка на страницу человека';
     }
 
+    this.nodes.wrapper.addEventListener('keydown', (event) => {
+      const A = 65;
+      const cmdPressed = event.ctrlKey || event.metaKey;
+
+      if (event.keyCode === A && cmdPressed) {
+        event.stopPropagation();
+      }
+    });
+
     this.nodes.photo.addEventListener('click', () => {
       this.uploader.uploadSelectedFile({
         onPreview: () => {
