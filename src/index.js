@@ -41,7 +41,7 @@ export default class Personality {
   /**
    * @param {PersonalityToolData} data - Tool's data
    * @param {PersonalityConfig} config - Tool's config
-   * @param {object} api - Editor.js API
+   * @param {API} api - Editor.js API
    */
   constructor({ data, config, api }) {
     this.api = api;
