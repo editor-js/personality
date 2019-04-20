@@ -22,20 +22,19 @@
         overflow: hidden;
     }
 
-    &__title {
-        font-size: 16px;
+    &__name {
         font-weight: 600;
         outline: none;
     }
 
     &__description {
-        font-size: 14px;
+        font-size: 0.86em;
         margin: 10px 0;
         outline: none;
     }
 
     &__link {
-        font-size: 11px;
+        font-size: 0.68em;
         color: #6e758a;
         letter-spacing: 0.1px;
         text-overflow: ellipsis;

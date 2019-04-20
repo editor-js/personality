@@ -10,7 +10,7 @@ const LOADER_DELAY = 500;
 /**
  * @typedef {object} PersonalityToolData
  * @description Personality Tool's input and output data format
- * @property {string} title — person's name
+ * @property {string} name — person's name
  * @property {string} description - person's description
  * @property {string} link - link to person's website
  * @property {string} photo - person's photo url
@@ -48,13 +48,11 @@ export default class Personality {
 
     this.nodes = {
       wrapper: null,
-      title: null,
+      name: null,
       description: null,
       link: null,
       photo: null
     };
-
-    this._data = {};
 
     this.config = {
       endpoint: config.endpoint || '',
@@ -62,6 +60,10 @@ export default class Personality {
       types: config.types || 'image/*'
     };
 
+    /**
+     * Set saved state
+     */
+    this._data = {};
     this.data = data;
 
     /**
@@ -156,7 +158,7 @@ export default class Personality {
        * Tool's classes
        */
       wrapper: 'cdx-personality',
-      title: 'cdx-personality__title',
+      name: 'cdx-personality__name',
       photo: 'cdx-personality__photo',
       link: 'cdx-personality__link',
       description: 'cdx-personality__description'
@@ -169,11 +171,11 @@ export default class Personality {
    */
   save(toolsContent) {
     const link = toolsContent.querySelector(`.${this.CSS.link}`).textContent;
-    const title = toolsContent.querySelector(`.${this.CSS.title}`).textContent;
+    const name = toolsContent.querySelector(`.${this.CSS.name}`).textContent;
     const description = toolsContent.querySelector(`.${this.CSS.description}`).textContent;
 
     Object.assign(this.data, {
-      title: title || this._data.title,
+      name: name || this._data.name,
       description: description || this._data.description,
       link: link || this._data.link
     });
@@ -185,9 +187,9 @@ export default class Personality {
    * Stores all Tool's data
    * @param {PersonalityToolData} data
    */
-  set data({ title, description, link, photo }) {
+  set data({ name, description, link, photo }) {
     this._data = Object.assign({}, {
-      title: title || this._data.title,
+      name: name || this._data.name,
       description: description || this._data.description,
       link: link || this._data.link,
       photo: photo || this._data.photo
@@ -207,11 +209,11 @@ export default class Personality {
    * @return {HTMLDivElement}
    */
   render() {
-    const { title, description, photo, link } = this.data;
+    const { name, description, photo, link } = this.data;
 
     this.nodes.wrapper = this.make('div', this.CSS.wrapper);
 
-    this.nodes.title = this.make('div', this.CSS.title, {
+    this.nodes.name = this.make('div', this.CSS.name, {
       contentEditable: true
     });
 
@@ -235,10 +237,10 @@ export default class Personality {
       this.nodes.description.dataset.placeholder = 'Должность или другая информация';
     }
 
-    if (title) {
-      this.nodes.title.textContent = title;
+    if (name) {
+      this.nodes.name.textContent = name;
     } else {
-      this.nodes.title.dataset.placeholder = 'Введите имя';
+      this.nodes.name.dataset.placeholder = 'Введите имя';
     }
 
     if (link) {
@@ -265,7 +267,7 @@ export default class Personality {
     });
 
     this.nodes.wrapper.appendChild(this.nodes.photo);
-    this.nodes.wrapper.appendChild(this.nodes.title);
+    this.nodes.wrapper.appendChild(this.nodes.name);
     this.nodes.wrapper.appendChild(this.nodes.description);
     this.nodes.wrapper.appendChild(this.nodes.link);
 

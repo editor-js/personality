@@ -4,7 +4,7 @@
 
 Personality Tool for the [Editor.js](https://editorjs.io).
 
-![](https://capella.pics/fdc39fb3-50fa-4de9-b967-3ae4982270b7.jpg)
+![](https://capella.pics/064afd7b-b67e-482b-b92a-d445b098def2.jpg)
 
 ## Features
 
@@ -79,7 +79,7 @@ This Tool returns `data` with following format
 
 | Field          | Type      | Description                      |
 | -------------- | --------- | ---------------------------------|
-| title          | `string`  | Person's title                   |
+| name           | `string`  | Person's name                    |
 | description    | `string`  | Person's description             |
 | link           | `string`  | Link to person's website         |
 | photo          | `string`  | Uploaded image url from backend. |
@@ -88,10 +88,10 @@ This Tool returns `data` with following format
 {
     "type" : "personality",
     "data" : {
-        "title" : "Elon Musk",
+        "name" : "Elon Musk",
         "description" : "Elon Reeve Musk FRS is a technology entrepreneur, investor, and engineer. He holds South African, Canadian, and U.S. citizenship and is the founder",
         "link" : "https://twitter.com/elonmusk",
-        "photo" : "/Users/polina/PhpstormProjects/codex.editor/example/tools/personality/dev/.tmp/upload_0eb90b4e99287acfc2ad6f3e4f5c7bdc.jpg"
+        "photo" : "https://capella.pics/3c0e1b97-bc56-4961-b54e-2a6c2c3260f2.jpg"
     }
 }
 ```
