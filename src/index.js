@@ -167,6 +167,7 @@ export default class Personality {
 
   /**
    * Return Block data
+   * @param {HTMLElement} toolsContent
    * @return {PersonalityToolData}
    */
   save(toolsContent) {
