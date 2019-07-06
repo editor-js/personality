@@ -12,6 +12,26 @@
         display: table;
     }
 
+    [contentEditable=true][data-placeholder] {
+        &::before {
+            position: absolute;
+            content: attr(data-placeholder);
+            color: #707684;
+            font-weight: normal;
+            opacity: 0;
+        }
+
+        &:empty {
+            &::before {
+                opacity: 1;
+            }
+
+            &:focus::before {
+                opacity: 0;
+            }
+        }
+    }
+
     &__photo {
         float: right;
         width: 70px;
