@@ -1,6 +1,6 @@
 ![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
-# Personality Tool for Editor.js
+# Personality Tool 
 
 Personality Tool for the [Editor.js](https://editorjs.io).
 
@@ -37,9 +37,9 @@ const Personality = require('@editorjs/personality');
 
 ### Load from CDN
 
-You can load specific version of package from [jsDelivr CDN](https://cdn.jsdelivr.net/npm/@editorjs/personality@latest).
+You can load specific version of package from [jsDelivr CDN](https://cdn.jsdelivr.net/npm/@editorjs/personality@2.0.0).
 
-`https://cdn.jsdelivr.net/npm/@editorjs/personality@latest`
+`https://cdn.jsdelivr.net/npm/@editorjs/personality@2.0.0`
 
 Then require this script on page with Editor.js through the `<script src=""></script>` tag.
 
@@ -118,7 +118,7 @@ Response of your uploader **should** cover following format:
 {
     "success" : 1,
     "file": {
-        "url" : "/Users/polina/PhpstormProjects/codex.editor/example/tools/personality/dev/.tmp/upload_0eb90b4e99287acfc2ad6f3e4f5c7bdc.jpg"
+        "url" : "https://capella.pics/3c0e1b97-bc56-4961-b54e-2a6c2c3260f2.jpg"
     }
 }
 ```
