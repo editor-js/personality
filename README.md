@@ -12,7 +12,9 @@ This tool allows you to create Personality block in your articles.
 
 **Note** Tool requires server-side implementation for file uploading. See [backend response format](#server-format) for more details.
 
-## Installation
+## Get the package
+
+You can get the package using any of these ways.
 
 ### Install via NPM
 
