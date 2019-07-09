@@ -99,8 +99,6 @@ export default class Personality {
       Object.assign(this.data, { photo: file.url });
 
       this.showFullImage();
-    } else {
-      this.uploadingFailed('Uploading failed');
     }
   }
 
