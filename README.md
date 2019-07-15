@@ -71,9 +71,12 @@ Personality Tool supports these configuration parameters:
 
 | Field | Type     | Description        |
 | ----- | -------- | ------------------ |
-| endpoint | `string` | **Required** Endpoint for photo uploading.
+| endpoint | `string` | **Required** Endpoint for photo uploading. |
 | field | `string` | (default: `image`) Name of uploaded image field in POST request |
 | types | `string` | (default: `image/*`) Mime-types of files that can be [accepted with file selection](https://github.com/codex-team/ajax#accept-string).|
+| namePlaceholder | `string` | (default: `Name`) Placeholder for name field |
+| descriptionPlaceholder | `string` | (default: `Description`) Placeholder for description field |
+| linkPlaceholder | `string` | (default: `Link`) Link field placeholder |
 
 ## Output data
 

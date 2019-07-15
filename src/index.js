@@ -22,6 +22,9 @@ const LOADER_DELAY = 500;
  * @property {string} endpoint - image file upload url
  * @property {string} field - field name for uploaded image
  * @property {string} types - available mime-types
+ * @property {string} namePlaceholder - placeholder for name field
+ * @property {string} descriptionPlaceholder - description placeholder
+ * @property {string} linkPlaceholder - link placeholder
  */
 
 /**
@@ -57,7 +60,10 @@ export default class Personality {
     this.config = {
       endpoint: config.endpoint || '',
       field: config.field || 'image',
-      types: config.types || 'image/*'
+      types: config.types || 'image/*',
+      namePlaceholder: config.namePlaceholder || 'Name',
+      descriptionPlaceholder: config.descriptionPlaceholder || 'Description',
+      linkPlaceholder: config.linkPlaceholder || 'Link'
     };
 
     /**
@@ -233,19 +239,19 @@ export default class Personality {
     if (description) {
       this.nodes.description.textContent = description;
     } else {
-      this.nodes.description.dataset.placeholder = 'Должность или другая информация';
+      this.nodes.description.dataset.placeholder = this.config.descriptionPlaceholder;
     }
 
     if (name) {
       this.nodes.name.textContent = name;
     } else {
-      this.nodes.name.dataset.placeholder = 'Введите имя';
+      this.nodes.name.dataset.placeholder = this.config.namePlaceholder;
     }
 
     if (link) {
       this.nodes.link.textContent = link;
     } else {
-      this.nodes.link.dataset.placeholder = 'Ссылка на страницу человека';
+      this.nodes.link.dataset.placeholder = this.config.linkPlaceholder;
     }
 
     this.nodes.photo.addEventListener('click', () => {
