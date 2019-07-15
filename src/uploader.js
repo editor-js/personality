@@ -36,7 +36,9 @@ export default class Uploader {
     }).then((response) => {
       this.onUpload(response);
     }).catch((error) => {
-      this.onError(error.message);
+      const message = error.body ? error.body.message : 'Uploading failed';
+
+      this.onError(message);
     });
   }
 }

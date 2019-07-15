@@ -38,14 +38,12 @@ class ServerExample {
   onRequest(request, response) {
     this.allowCors(response);
 
-    const {method, url} = request;
+    const { method, url } = request;
 
     if (method.toLowerCase() !== 'post') {
       response.end();
       return;
     }
-
-    console.log('Got request on the ', url);
 
     switch (url) {
       case '/uploadFile':
@@ -75,8 +73,10 @@ class ServerExample {
       success: 0
     };
 
+    let responseCode = 200;
+
     this.getForm(request)
-      .then(({files}) => {
+      .then(({ files }) => {
         let image = files[this.fieldName] || {};
 
         responseJson.success = 1;
@@ -87,10 +87,12 @@ class ServerExample {
         };
       })
       .catch((error) => {
-        console.log('Uploading error', error);
+        responseJson.success = 0;
+        responseJson.message = error.message;
+        responseCode = 500;
       })
       .finally(() => {
-        response.writeHead(200, {'Content-Type': 'application/json'});
+        response.writeHead(responseCode, { 'Content-Type': 'application/json' });
         response.end(JSON.stringify(responseJson));
       });
   }
