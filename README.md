@@ -10,7 +10,7 @@ Personality Tool for the [Editor.js](https://editorjs.io).
 
 This tool allows you to create Personality block in your articles.
 
-**Note** Tool requires server-side implementation for file uploading. See [backend response format](#server-format) for more details.
+**Note** Tool requires server-side implementation for image uploading. See [backend response format](#server-format) for more details.
 
 ## Get the package
 
@@ -71,7 +71,7 @@ Personality Tool supports these configuration parameters:
 
 | Field | Type     | Description        |
 | ----- | -------- | ------------------ |
-| endpoint | `string` | **Required** Endpoint for file uploading.
+| endpoint | `string` | **Required** Endpoint for photo uploading.
 | field | `string` | (default: `image`) Name of uploaded image field in POST request |
 | types | `string` | (default: `image/*`) Mime-types of files that can be [accepted with file selection](https://github.com/codex-team/ajax#accept-string).|
 
