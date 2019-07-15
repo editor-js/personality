@@ -65,12 +65,7 @@
 
 .codex-editor--narrow {
   .cdx-personality {
-    display: flex;
-    flex-direction: column;
-
-    &__photo {
-      margin: 0 auto 25px;
-    }
+    padding: 15px;
   }
 }
 
