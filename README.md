@@ -1,90 +1,131 @@
-![](https://badgen.net/badge/CodeX%20Editor/v1.0/gray)
+![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
-# Personality Tool for CodeX Editor
+# Personality Tool 
+
+Personality Tool for the [Editor.js](https://editorjs.io).
+
+![](https://capella.pics/064afd7b-b67e-482b-b92a-d445b098def2.jpg)
+
+## Features
 
 This tool allows you to create Personality block in your articles.
 
-![Example](https://ifmo.su/public/img/external/personality.png)
+**Note** Tool requires server-side implementation for image uploading. See [backend response format](#server-format) for more details.
 
-## Install via npm
+## Get the package
+
+You can get the package using any of these ways.
+
+### Install via NPM
+
+Get the package
 
 ```shell
-npm i --save codex.editor.personality
+npm i --save-dev @editorjs/personality
 ```
 
-#### Connect with Webpack
-Include module in your application
-```js
-var cdxEditorPersonality = require('exports-loader?cdxEditorPersonality!codex.editor.personality');
-```
-Include CSS filee
-```css
-@import url("~codex.editor.personality/personality.css");
-```
-You will need `exports-loader`, `css-loader` and `file-loader`.
+Include module at your application
 
-## Install directly
+```javascript
+const Personality = require('@editorjs/personality');
+```
 
-1. Download folder
-2. Add `personality.js` and `personality.css` files on your page
+### Download to your project's source dir
+
+1. Upload folder `dist` from repository
+2. Add `dist/bundle.js` file to your page.
+
+### Load from CDN
+
+You can load specific version of package from [jsDelivr CDN](https://cdn.jsdelivr.net/npm/@editorjs/personality@2.0.0).
+
+`https://cdn.jsdelivr.net/npm/@editorjs/personality@2.0.0`
+
+Then require this script on page with Editor.js through the `<script src=""></script>` tag.
 
 ## Usage
 
-Pass new tool to the `codex.editor.start` method in `tools` array:
+Add a new Tool to the `tools` property of the Editor.js initial config.
 
-```js
-personality: {
-    type             : 'personality',
-    displayInToolbox : true,
-    iconClassname    : 'cdx-personality-icon',
-    prepare          : cdxEditorPersonality.prepare,
-    render           : cdxEditorPersonality.render,
-    save             : cdxEditorPersonality.save,
-    validate         : cdxEditorPersonality.validate,
-    destroy          : cdxEditorPersonality.destroy,
-    enableLineBreaks : true,
-    showInlineToolbar: true,
-    config: {
-        uploadURL: '/uploadPhoto',
+```javascript
+var editor = EditorJS({
+  ...
+
+  tools: {
+    ...
+    personality: {
+      class: Personality,
+      config: {
+        endpoint: 'http://localhost:8008/uploadFile'  // Your backend file uploader endpoint
+      }
     }
-}
+  }
+
+  ...
+});
 ```
-5. Specify `config.uploadURL` with route for file uploading. 
 
-### File uploading
+## Config Params
 
-To set personality photo, you will need server-side image uploader method.
+Personality Tool supports these configuration parameters:
 
-Tool will send selected file on the route passed with `config.uploadURL`. Then you free to implement your own file-saving scheme. 
+| Field | Type     | Description        |
+| ----- | -------- | ------------------ |
+| endpoint | `string` | **Required** Endpoint for photo uploading. |
+| field | `string` | (default: `image`) Name of uploaded image field in POST request |
+| types | `string` | (default: `image/*`) Mime-types of files that can be [accepted with file selection](https://github.com/codex-team/ajax#accept-string).|
+| namePlaceholder | `string` | (default: `Name`) Placeholder for name field |
+| descriptionPlaceholder | `string` | (default: `Description`) Placeholder for description field |
+| linkPlaceholder | `string` | (default: `Link`) Link field placeholder |
 
-Expected server response format: 
+## Output data
+
+This Tool returns `data` with following format
+
+| Field          | Type      | Description                      |
+| -------------- | --------- | ---------------------------------|
+| name           | `string`  | Person's name                    |
+| description    | `string`  | Person's description             |
+| link           | `string`  | Link to person's website         |
+| photo          | `string`  | Uploaded image url from backend. |
 
 ```json
 {
-  "success": 1,
-  "data" : {
-    "url" : "/uploaded/file/path.jpg"
-  }
+    "type" : "personality",
+    "data" : {
+        "name" : "Elon Musk",
+        "description" : "Elon Reeve Musk FRS is a technology entrepreneur, investor, and engineer. He holds South African, Canadian, and U.S. citizenship and is the founder",
+        "link" : "https://twitter.com/elonmusk",
+        "photo" : "https://capella.pics/3c0e1b97-bc56-4961-b54e-2a6c2c3260f2.jpg"
+    }
 }
 ```
 
-## CodeX Editor
+## Backend response format <a name="server-format"></a>
 
-API oriented, open-source, block-styled Edtior.
+This Tool works with uploading files from the device
 
-https://github.com/codex-team/codex.editor
+**Scenario:**
 
-## Authors 
+1. User select file from the device
+2. Tool sends it to **your** backend (on `config.endpoint.byFile` route)
+3. Your backend should save file and return file data with JSON at specified format.
+4. Personality tool shows saved image and stores server answer
 
-We are small team of Web-developing fans consisting of IFMO students and graduates located in St. Petersburg, Russia.
-Fell free to give us a feedback on <a href="mailto::team@ifmo.su">team@ifmo.su</a>
+So, you can implement backend for file saving by your own way. It is a specific and trivial task depending on your
+environment and stack.
 
-https://ifmo.su
+Response of your uploader **should** cover following format:
 
-### Follow us!
+```json5
+{
+    "success" : 1,
+    "file": {
+        "url" : "https://capella.pics/3c0e1b97-bc56-4961-b54e-2a6c2c3260f2.jpg"
+    }
+}
+```
 
-VK: https://vk.com/codex_team
+**success** - uploading status. 1 for successful, 0 for failed
 
-Telegram: https://t.me/codex_team
-
-Instagram: https://www.instagram.com/codex_team
+**file** - uploaded file data. **Must** contain an `url` field with full public path to the uploaded image.
