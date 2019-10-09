@@ -114,7 +114,7 @@ Scenario:
 1. User select file from the device
 2. Tool sends it to **your** backend (on `config.endpoint.byFile` route)
 3. Your backend should save file and return file data with JSON at specified format.
-4. Image tool shows saved image and stores server answer
+4. Personality tool shows saved image and stores server answer
 
 So, you can implement backend for file saving by your own way. It is a specific and trivial task depending on your
 environment and stack.
