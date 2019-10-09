@@ -109,12 +109,11 @@ export default class Personality {
    * @param {UploadResponseFormat} response
    */
   onUpload(response) {
-    const { body: { success, file } } = response;
-
-    if (success && file && file.url) {
-      Object.assign(this.data, { photo: file.url });
-
+    if (response.success && response.file) {
+      Object.assign(this.data, { photo: response.file.url });
       this.showFullImage();
+    } else {
+      this.uploadingFailed('Incorrect response: ' + JSON.stringify(response));
     }
   }
 
