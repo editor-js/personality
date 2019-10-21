@@ -19,12 +19,19 @@ const LOADER_DELAY = 500;
 /**
  * @typedef {object} PersonalityConfig
  * @description Config supported by Tool
- * @property {string} endpoint - image file upload url
+ * @property {object} endpoints - upload endpoints
+ * @property {string} endpoints.byFile - upload by file
+ * @property {string} endpoints.byUrl - upload by URL
  * @property {string} field - field name for uploaded image
  * @property {string} types - available mime-types
  * @property {string} namePlaceholder - placeholder for name field
  * @property {string} descriptionPlaceholder - description placeholder
  * @property {string} linkPlaceholder - link placeholder
+ * @property {object} additionalRequestData - any data to send with requests
+ * @property {object} additionalRequestHeaders - allows to pass custom headers with Request
+ * @property {object} [uploader] - optional custom uploader
+ * @property {function(File): Promise.<UploadResponseFormat>} [uploader.uploadByFile] - method that upload image by File
+ * @property {function(string): Promise.<UploadResponseFormat>} [uploader.uploadByUrl] - method that upload image by URL
  */
 
 /**
@@ -58,12 +65,15 @@ export default class Personality {
     };
 
     this.config = {
-      endpoint: config.endpoint || '',
+      endpoints: config.endpoints || '',
+      additionalRequestData: config.additionalRequestData || {},
+      additionalRequestHeaders: config.additionalRequestHeaders || {},
       field: config.field || 'image',
       types: config.types || 'image/*',
       namePlaceholder: config.namePlaceholder || 'Name',
       descriptionPlaceholder: config.descriptionPlaceholder || 'Description',
-      linkPlaceholder: config.linkPlaceholder || 'Link'
+      linkPlaceholder: config.linkPlaceholder || 'Link',
+      uploader: config.uploader || undefined
     };
 
     /**
@@ -99,12 +109,11 @@ export default class Personality {
    * @param {UploadResponseFormat} response
    */
   onUpload(response) {
-    const { body: { success, file } } = response;
-
-    if (success && file && file.url) {
-      Object.assign(this.data, { photo: file.url });
-
+    if (response.success && response.file) {
+      Object.assign(this.data, { photo: response.file.url });
       this.showFullImage();
+    } else {
+      this.uploadingFailed('Incorrect response: ' + JSON.stringify(response));
     }
   }
 
