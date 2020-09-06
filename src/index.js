@@ -69,7 +69,6 @@ export default class Personality {
     /**
      * Set saved state
      */
-    this._data = {};
     this.data = data;
 
     /**
@@ -102,7 +101,7 @@ export default class Personality {
     const { body: { success, file } } = response;
 
     if (success && file && file.url) {
-      Object.assign(this.data, { photo: file.url });
+      this.data.photo = file.url;
 
       this.showFullImage();
     }
@@ -175,38 +174,19 @@ export default class Personality {
    * @return {PersonalityToolData}
    */
   save(toolsContent) {
-    const link = toolsContent.querySelector(`.${this.CSS.link}`).textContent;
     const name = toolsContent.querySelector(`.${this.CSS.name}`).textContent;
     const description = toolsContent.querySelector(`.${this.CSS.description}`).textContent;
+    const link = toolsContent.querySelector(`.${this.CSS.link}`).textContent;
+    const photo = this.data.photo;
 
     Object.assign(this.data, {
-      name: name || this._data.name,
-      description: description || this._data.description,
-      link: link || this._data.link
+      name: name || '',
+      description: description || '',
+      link: link || '',
+      photo: photo || ''
     });
 
     return this.data;
-  }
-
-  /**
-   * Stores all Tool's data
-   * @param {PersonalityToolData} data
-   */
-  set data({ name, description, link, photo }) {
-    this._data = Object.assign({}, {
-      name: name || this._data.name,
-      description: description || this._data.description,
-      link: link || this._data.link,
-      photo: photo || this._data.photo
-    });
-  }
-
-  /**
-   * Return Tool data
-   * @return {PersonalityToolData} data
-   */
-  get data() {
-    return this._data;
   }
 
   /**
