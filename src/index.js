@@ -179,10 +179,13 @@ export default class Personality {
     const link = toolsContent.querySelector(`.${this.CSS.link}`).textContent;
     const photo = this.data.photo;
 
+    /**
+     * Fill missing fields with empty strings
+     */
     Object.assign(this.data, {
-      name: name || '',
-      description: description || '',
-      link: link || '',
+      name: name.trim() || '',
+      description: description.trim() || '',
+      link: link.trim() || '',
       photo: photo || ''
     });
 
@@ -248,6 +251,21 @@ export default class Personality {
     this.nodes.wrapper.appendChild(this.nodes.link);
 
     return this.nodes.wrapper;
+  }
+
+  /**
+   * Validate saved data
+   * @param {PersonalityToolData} savedData - tool's data
+   * @returns {boolean} - validation result
+   */
+  validate(savedData) {
+    /**
+     * Return false if fields are empty
+     */
+    return savedData.name ||
+        savedData.description ||
+        savedData.link ||
+        savedData.photo;
   }
 
   /**
