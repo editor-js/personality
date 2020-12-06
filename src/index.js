@@ -106,6 +106,14 @@ export default class Personality {
       this.showFullImage();
     }
   }
+  
+  /**
+   * Set photo node url background
+   * @param {String} photo url
+   */
+  setFullImageSource(photo) {
+    this.nodes.photo.style.background = `url('${photo}') center center / cover no-repeat`;
+  }
 
   /**
    * On success: remove loader and show full image
@@ -113,7 +121,7 @@ export default class Personality {
   showFullImage() {
     setTimeout(() => {
       this.nodes.photo.classList.remove(this.CSS.loader);
-      this.nodes.photo.style.background = `url('${this.data.photo}') center center / cover no-repeat`;
+      this.setFullImageSource(this.data.photo);
     }, LOADER_DELAY);
   }
 
@@ -216,7 +224,7 @@ export default class Personality {
     this.nodes.photo = this.make('div', this.CSS.photo);
 
     if (photo) {
-      this.nodes.photo.style.background = `url('${photo}') center center / cover no-repeat`;
+      this.setFullImageSource(photo);
     }
 
     if (description) {
