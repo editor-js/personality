@@ -1,10 +1,10 @@
 ![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
-# Personality Tool 
+# Personality Tool
 
 Personality Tool for the [Editor.js](https://editorjs.io).
 
-![](https://capella.pics/064afd7b-b67e-482b-b92a-d445b098def2.jpg)
+![](assets/68747470733a2f2f636170656c6c612e706963732f30363461666437622d623637652d343832622d623932612d6434343562303938646566322e6a7067.jpeg)
 
 ## Features
 
