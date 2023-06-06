@@ -45,9 +45,11 @@ export default class Personality {
    * @param {PersonalityToolData} data - Tool's data
    * @param {PersonalityConfig} config - Tool's config
    * @param {API} api - Editor.js API
+   * @param {boolean} readOnly - read-only mode flas
    */
-  constructor({ data, config, api }) {
+  constructor({ data, config, api, readOnly }) {
     this.api = api;
+    this.readOnly = readOnly;
 
     this.nodes = {
       wrapper: null,
@@ -91,6 +93,15 @@ export default class Personality {
       icon: ToolboxIcon,
       title: 'Personality'
     };
+  }
+
+  /**
+   * Notify core that read-only mode is supported
+   *
+   * @returns {boolean}
+   */
+  static get isReadOnlySupported() {
+    return true;
   }
 
   /**
@@ -202,15 +213,15 @@ export default class Personality {
     this.nodes.wrapper = this.make('div', this.CSS.wrapper);
 
     this.nodes.name = this.make('div', this.CSS.name, {
-      contentEditable: true
+      contentEditable: !this.readOnly,
     });
 
     this.nodes.description = this.make('div', this.CSS.description, {
-      contentEditable: true
+      contentEditable: !this.readOnly,
     });
 
     this.nodes.link = this.make('div', this.CSS.link, {
-      contentEditable: true
+      contentEditable: !this.readOnly,
     });
 
     this.nodes.photo = this.make('div', this.CSS.photo);
